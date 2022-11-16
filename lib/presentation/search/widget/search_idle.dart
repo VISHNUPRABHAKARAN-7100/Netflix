@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_app/core/colors/colors.dart';
+import 'package:netflix_app/presentation/search/widget/title.dart';
 import '../../../core/constants/constants.dart';
 
 const imageUrl =
@@ -14,10 +15,7 @@ class SearchIdleWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
-          'Top Searches',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-        ),
+        const SearchTextTitle(title: 'Top Searches'),
         kSizedBox(height: 10, width: 0),
         Expanded(
           child: ListView.separated(
@@ -32,6 +30,8 @@ class SearchIdleWidget extends StatelessWidget {
     );
   }
 }
+
+
 
 class TopSearchItemTile extends StatelessWidget {
   const TopSearchItemTile({super.key});
