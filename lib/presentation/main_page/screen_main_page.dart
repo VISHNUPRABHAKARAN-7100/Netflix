@@ -4,7 +4,7 @@ import 'package:netflix_app/presentation/fast_laugh/screen_fast_laugh.dart';
 import 'package:netflix_app/presentation/home/screen_home.dart';
 import 'package:netflix_app/presentation/main_page/widgets/bottom_nav_bar.dart';
 import 'package:netflix_app/presentation/new_and_hot/new_and_hot.dart';
-import 'package:netflix_app/presentation/search/search.dart';
+import 'package:netflix_app/presentation/search/screen_search.dart';
 
 class ScreenMainPage extends StatelessWidget {
   ScreenMainPage({super.key});
