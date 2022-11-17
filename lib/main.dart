@@ -14,14 +14,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: GoogleFonts.montserrat().fontFamily,
+      theme: ThemeData(
+        fontFamily: GoogleFonts.montserrat().fontFamily,
         primarySwatch: Colors.blue,
         textTheme: const TextTheme(
           bodyText1: TextStyle(
-            color: Colors.white,
+            color:kWhiteColor,
           ),
           bodyText2: TextStyle(
-            color: Colors.white,
+            color: kWhiteColor,
           ),
         ),
         scaffoldBackgroundColor: screenBackgroundColor,

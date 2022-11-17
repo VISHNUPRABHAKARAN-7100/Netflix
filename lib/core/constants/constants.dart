@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
-
 /// Function for SizedBox
-kSizedBox({required double height, required double width}) {
+kSizedBox({double height = 0, double width = 0}) {
   return SizedBox(
     height: height,
     width: width,
@@ -15,3 +14,8 @@ kBorderRadius({
 }) {
   return BorderRadius.circular(radius);
 }
+
+// Image
+
+const mainImage =
+    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/tgVBMIiJczfBWINRRd9yxE8ESln.jpg';

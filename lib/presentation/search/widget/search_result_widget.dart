@@ -15,6 +15,7 @@ class SearchResultWidget extends StatelessWidget {
       children: [
         kSizedBox(height: 5, width: 0),
         const SearchTextTitle(title: 'Movies & TV'),
+        kSizedBox(height: 7),
         Expanded(
           child: GridView.count(
             mainAxisSpacing: 8,
@@ -40,8 +41,9 @@ class MyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7),
+        borderRadius: BorderRadius.circular(10),
         image: const DecorationImage(
+          fit: BoxFit.cover,
           image: NetworkImage(
             imageUrl,
           ),

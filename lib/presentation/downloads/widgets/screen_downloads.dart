@@ -65,55 +65,57 @@ class Section2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Column(
-      children: [
-        const Text(
-          'Introducing Downloads for you',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: kWhiteColor, fontSize: 23, fontWeight: FontWeight.bold),
-        ),
-        kSizedBox(height: 10, width: 0),
-        const Text(
-          'We will download a personalised selection of\n movies and shows'
-          ' for you, So there is always something to watch on your\n device',
-          textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.grey, fontSize: 16),
-        ),
-        SizedBox(
-          width: size.width,
-          height: size.width,
-          child: Center(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.grey.withOpacity(0.5),
-                  radius: size.width * 0.4,
-                ),
-                DownloadsImageWidget(
-                  imageList: imageList[0],
-                  margin: const EdgeInsets.only(left: 170, top: 50),
-                  size: Size(size.width * 0.35, size.height * 0.55),
-                  angle: 25,
-                ),
-                DownloadsImageWidget(
-                  imageList: imageList[1],
-                  margin: const EdgeInsets.only(right: 170, top: 50),
-                  angle: -25,
-                  size: Size(size.width * 0.35, size.height * 0.55),
-                ), 
-                DownloadsImageWidget(
-                  imageList: imageList[2],
-                  margin: const EdgeInsets.only(left: 0, bottom: 40, top: 50),
-                  size: Size(size.width * 0.45, size.height * 0.58),
-                  radius: 30,
-                ),
-              ],
+    return SafeArea(
+      child: Column(
+        children: [
+          const Text(
+            'Introducing Downloads for you',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: kWhiteColor, fontSize: 23, fontWeight: FontWeight.bold),
+          ),
+          kSizedBox(height: 10, width: 0),
+          const Text(
+            'We will download a personalised selection of\n movies and shows'
+            ' for you, So there is always something to watch on your\n device',
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.grey, fontSize: 16),
+          ),
+          SizedBox(
+            width: size.width,
+            height: size.width,
+            child: Center(
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.grey.withOpacity(0.5),
+                    radius: size.width * 0.3,
+                  ),
+                  DownloadsImageWidget(
+                    imageList: imageList[0],
+                    margin: const EdgeInsets.only(left: 170, top: 40),
+                    size: Size(size.width * 0.35, size.height * 0.25),
+                    angle: 15,
+                  ),
+                  DownloadsImageWidget(
+                    imageList: imageList[1],
+                    margin: const EdgeInsets.only(right: 170, top: 40),
+                    angle: -15,
+                    size: Size(size.width * 0.35, size.height * 0.25),
+                  ), 
+                  DownloadsImageWidget(
+                    imageList: imageList[2],
+                    margin: const EdgeInsets.only(left: 0, bottom: 40, top: 50),
+                    size: Size(size.width * 0.35, size.height * 0.25),
+                    radius: 10,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -189,7 +191,7 @@ class DownloadsImageWidget extends StatelessWidget {
           height: size.height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
-            image: DecorationImage(
+            image: DecorationImage(fit: BoxFit.cover,
               image: NetworkImage(
                 imageList,
               ),
