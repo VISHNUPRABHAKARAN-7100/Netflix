@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix_app/presentation/search/widget/search_idle.dart';
 import 'package:netflix_app/presentation/search/widget/search_result_widget.dart';
 
 class ScreenSearch extends StatelessWidget {
