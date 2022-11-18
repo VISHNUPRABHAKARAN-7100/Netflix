@@ -133,7 +133,7 @@ class Section3 extends StatelessWidget {
             onPressed: () {},
             color: kButtonColorBlue,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                RoundedRectangleBorder(borderRadius: kBorderRadius(radius: 5),),
             child: const Text(
               'Setup',
               style: TextStyle(
@@ -146,7 +146,7 @@ class Section3 extends StatelessWidget {
         ),
         kSizedBox(height: 10, width: 0),
         MaterialButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+          shape: RoundedRectangleBorder(borderRadius:kBorderRadius(radius: 5),),
           onPressed: () {},
           color: kButtonColourWhite,
           child: const Text(

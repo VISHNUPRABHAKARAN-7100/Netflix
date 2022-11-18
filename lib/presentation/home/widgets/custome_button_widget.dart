@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:netflix_app/core/colors/colors.dart';
 
@@ -7,10 +6,14 @@ class CustomButtonWidget extends StatelessWidget {
     Key? key,
     required this.customIcon,
     required this.iconText,
+    this.textSize = 18,
+    this.iconsize = 30,
   }) : super(key: key);
 
   final IconData customIcon;
   final String iconText;
+  final double textSize;
+  final double iconsize;
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +21,13 @@ class CustomButtonWidget extends StatelessWidget {
       children: [
         Icon(
           customIcon,
-          size: 30,
+          size: iconsize,
           color: kWhiteColor,
         ),
         Text(
           iconText,
-          style: const TextStyle(
-            fontSize: 18,
+          style:  TextStyle(
+            fontSize: textSize,
           ),
         ),
       ],

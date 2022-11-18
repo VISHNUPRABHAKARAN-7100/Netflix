@@ -41,7 +41,7 @@ class MyCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: kBorderRadius(radius: 10),
         image: const DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(

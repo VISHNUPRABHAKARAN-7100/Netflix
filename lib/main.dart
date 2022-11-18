@@ -16,10 +16,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: GoogleFonts.montserrat().fontFamily,
-        primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: kBlackColor,
+        ),
         textTheme: const TextTheme(
           bodyText1: TextStyle(
-            color:kWhiteColor,
+            color: kWhiteColor,
           ),
           bodyText2: TextStyle(
             color: kWhiteColor,
