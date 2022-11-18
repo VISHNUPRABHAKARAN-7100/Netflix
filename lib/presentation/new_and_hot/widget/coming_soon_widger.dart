@@ -4,6 +4,7 @@ import 'package:netflix_app/core/colors/colors.dart';
 import 'package:netflix_app/core/constants/constants.dart';
 
 import '../../home/widgets/custome_button_widget.dart';
+import '../../widgets/video_widget.dart';
 
 class ComingSoonWidget extends StatelessWidget {
   const ComingSoonWidget({
@@ -41,30 +42,7 @@ class ComingSoonWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Image.network(
-                      'https://www.themoviedb.org/t/p/w533_and_h300_bestv2/A1bWhTFQKkhF1yhSKWosSyzn2Hp.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Positioned(
-                    right: 10,
-                    bottom: 10,
-                    child: CircleAvatar(
-                      radius: 15,
-                      backgroundColor: Colors.black.withOpacity(0.5),
-                      child: const Icon(
-                        CupertinoIcons.volume_off,
-                        color: kWhiteColor,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              const VideoWidget(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

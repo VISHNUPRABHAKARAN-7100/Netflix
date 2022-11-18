@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_app/core/colors/colors.dart';
+import 'package:netflix_app/presentation/home/widgets/custome_button_widget.dart';
+import 'package:netflix_app/presentation/new_and_hot/widget/everyones_watching_widget.dart';
+import 'package:netflix_app/presentation/widgets/video_widget.dart';
 import '../../core/constants/constants.dart';
 import 'widget/coming_soon_widger.dart';
 
@@ -70,7 +74,8 @@ class ScreenNewAndHot extends StatelessWidget {
   }
 
   _buildComingSoon() {
-    return ListView.builder(itemCount: 10,
+    return ListView.builder(
+      itemCount: 10,
       itemBuilder: (context, index) {
         return const ComingSoonWidget();
       },
@@ -78,16 +83,10 @@ class ScreenNewAndHot extends StatelessWidget {
   }
 
   _buildEveryOnesWatching() {
-    return ListView(
-      children: [
-        Container(
-          height: 50,
-          width: double.infinity,
-          color: Colors.amber,
-        ),
-      ],
+    return ListView.builder(itemCount: 10,
+      itemBuilder: (context, index) {
+        return const EveryonesWatchingWidget();
+      },
     );
   }
 }
-
-
