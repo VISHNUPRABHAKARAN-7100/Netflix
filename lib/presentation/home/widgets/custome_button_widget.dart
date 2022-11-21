@@ -26,7 +26,7 @@ class CustomButtonWidget extends StatelessWidget {
         ),
         Text(
           iconText,
-          style:  TextStyle(
+          style: TextStyle(
             fontSize: textSize,
           ),
         ),

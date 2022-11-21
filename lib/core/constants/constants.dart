@@ -19,3 +19,5 @@ kBorderRadius({
 
 const mainImage =
     'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/tgVBMIiJczfBWINRRd9yxE8ESln.jpg';
+
+const imageAppendUrl = "https://image.tmdb.org/t/p/w500";

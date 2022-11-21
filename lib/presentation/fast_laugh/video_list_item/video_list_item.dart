@@ -40,7 +40,8 @@ class VideListItem extends StatelessWidget {
                   children: const [
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 10),
-                      child: CircleAvatar(radius: 30,
+                      child: CircleAvatar(
+                        radius: 30,
                         backgroundImage: NetworkImage(
                             'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/g7rdcofib7HqdlDP1LT7Hmf1f2o.jpg'),
                       ),

@@ -5,7 +5,8 @@ import 'main_card.dart';
 
 class MainTitleCard extends StatelessWidget {
   const MainTitleCard({
-    Key? key, required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
   final String title;
 
@@ -14,7 +15,7 @@ class MainTitleCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         MainTitle(title: title),
+        MainTitle(title: title),
         kSizedBox(height: 10, width: 0),
         LimitedBox(
           maxHeight: 200,

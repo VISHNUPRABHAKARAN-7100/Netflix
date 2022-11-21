@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix_app/application/search/search_bloc.dart';
 import 'package:netflix_app/core/constants/constants.dart';
 import 'package:netflix_app/presentation/search/widget/title.dart';
-
-const imageUrl =
-    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/npBvD1rRQHYGrxuwr2OrzXLso1w.jpg';
 
 class SearchResultWidget extends StatelessWidget {
   const SearchResultWidget({super.key});
@@ -17,16 +16,24 @@ class SearchResultWidget extends StatelessWidget {
         const SearchTextTitle(title: 'Movies & TV'),
         kSizedBox(height: 7),
         Expanded(
-          child: GridView.count(
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
-            crossAxisCount: 3,
-            shrinkWrap: true,
-            childAspectRatio: 1 / 1.4,
-            children: List.generate(
-              20,
-              (index) => const MyCard(),
-            ),
+          child: BlocBuilder<SearchBloc, SearchState>(
+            builder: (context, state) {
+              return GridView.count(
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                crossAxisCount: 3,
+                shrinkWrap: true,
+                childAspectRatio: 1 / 1.4,
+                children: List.generate(
+                  20,
+                  (index) {
+                    final movie = state.searchResultList[index];
+
+                    return MyCard(imageUrl: movie.posterImageUrl,);
+                  },
+                ),
+              );
+            },
           ),
         )
       ],
@@ -35,14 +42,15 @@ class SearchResultWidget extends StatelessWidget {
 }
 
 class MyCard extends StatelessWidget {
-  const MyCard({super.key});
+  final String imageUrl;
+  const MyCard({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: kBorderRadius(radius: 10),
-        image: const DecorationImage(
+        image: DecorationImage(
           fit: BoxFit.cover,
           image: NetworkImage(
             imageUrl,

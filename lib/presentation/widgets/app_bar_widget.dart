@@ -10,7 +10,7 @@ class AppBarWidget extends StatelessWidget {
     return Scaffold(
       body: Row(
         children: [
-           Text(
+          Text(
             title,
             style: const TextStyle(
               fontSize: 30,

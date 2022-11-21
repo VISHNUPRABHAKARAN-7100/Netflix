@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:netflix_app/application/downloads/downloads_bloc.dart';
 import 'package:netflix_app/core/colors/colors.dart';
 import 'package:netflix_app/core/constants/constants.dart';
+import 'package:netflix_app/domain/downloads/models/downloads.dart';
 import 'package:netflix_app/presentation/widgets/app_bar_widget.dart';
 
 class ScreenDownloads extends StatelessWidget {
@@ -55,16 +58,16 @@ class _SmartDownloads extends StatelessWidget {
 }
 
 class Section2 extends StatelessWidget {
-  Section2({super.key});
-  final List<String> imageList = [
-    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/AeyiuQUUs78bPkz18FY3AzNFF8b.jpg',
-    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/rITxQBtnMpneZf8QzH1dqONQocx.jpg',
-    'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/rFljUdOozFEv6HDHIFpFvcYW0ec.jpg',
-  ];
+  const Section2({super.key});
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      BlocProvider.of<DownloadsBloc>(context)
+          .add(const DownloadsEvent.getDownloadsImage());
+    });
     return SafeArea(
       child: Column(
         children: [
@@ -81,38 +84,50 @@ class Section2 extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.grey, fontSize: 16),
           ),
-          SizedBox(
-            width: size.width,
-            height: size.width,
-            child: Center(
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.grey.withOpacity(0.5),
-                    radius: size.width * 0.3,
-                  ),
-                  DownloadsImageWidget(
-                    imageList: imageList[0],
-                    margin: const EdgeInsets.only(left: 170, top: 40),
-                    size: Size(size.width * 0.35, size.height * 0.25),
-                    angle: 15,
-                  ),
-                  DownloadsImageWidget(
-                    imageList: imageList[1],
-                    margin: const EdgeInsets.only(right: 170, top: 40),
-                    angle: -15,
-                    size: Size(size.width * 0.35, size.height * 0.25),
-                  ), 
-                  DownloadsImageWidget(
-                    imageList: imageList[2],
-                    margin: const EdgeInsets.only(left: 0, bottom: 40, top: 50),
-                    size: Size(size.width * 0.35, size.height * 0.25),
-                    radius: 10,
-                  ),
-                ],
-              ),
-            ),
+          BlocBuilder<DownloadsBloc, DownloadsState>(
+            builder: (context, state) {
+             // print(state.toString());
+              return SizedBox(
+                width: size.width,
+                height: size.width,
+                child: Center(
+                  child: state.isLoading
+                      ? const CircularProgressIndicator()
+                      : Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: Colors.grey.withOpacity(0.5),
+                              radius: size.width * 0.3,
+                            ),
+                            DownloadsImageWidget(
+                              imageList:
+                                  '$imageAppendUrl${state.downloads[0].posterPath}',
+                              margin: const EdgeInsets.only(left: 170, top: 40),
+                              size: Size(size.width * 0.35, size.height * 0.25),
+                              angle: 15,
+                            ),
+                            DownloadsImageWidget(
+                              imageList:
+                                  '$imageAppendUrl${state.downloads[1].posterPath}',
+                              margin:
+                                  const EdgeInsets.only(right: 170, top: 40),
+                              angle: -15,
+                              size: Size(size.width * 0.35, size.height * 0.25),
+                            ),
+                            DownloadsImageWidget(
+                              imageList:
+                                  '$imageAppendUrl${state.downloads[2].posterPath}',
+                              margin: const EdgeInsets.only(
+                                  left: 0, bottom: 40, top: 50),
+                              size: Size(size.width * 0.35, size.height * 0.25),
+                              radius: 10,
+                            ),
+                          ],
+                        ),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -132,8 +147,9 @@ class Section3 extends StatelessWidget {
           child: MaterialButton(
             onPressed: () {},
             color: kButtonColorBlue,
-            shape:
-                RoundedRectangleBorder(borderRadius: kBorderRadius(radius: 5),),
+            shape: RoundedRectangleBorder(
+              borderRadius: kBorderRadius(radius: 5),
+            ),
             child: const Text(
               'Setup',
               style: TextStyle(
@@ -146,7 +162,9 @@ class Section3 extends StatelessWidget {
         ),
         kSizedBox(height: 10, width: 0),
         MaterialButton(
-          shape: RoundedRectangleBorder(borderRadius:kBorderRadius(radius: 5),),
+          shape: RoundedRectangleBorder(
+            borderRadius: kBorderRadius(radius: 5),
+          ),
           onPressed: () {},
           color: kButtonColourWhite,
           child: const Text(
@@ -191,7 +209,8 @@ class DownloadsImageWidget extends StatelessWidget {
           height: size.height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
-            image: DecorationImage(fit: BoxFit.cover,
+            image: DecorationImage(
+              fit: BoxFit.cover,
               image: NetworkImage(
                 imageList,
               ),

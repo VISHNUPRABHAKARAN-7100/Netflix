@@ -5,7 +5,7 @@ import 'package:netflix_app/presentation/home/widgets/number_title_card.dart';
 import '../../core/constants/constants.dart';
 import '../widgets/main_title_card.dart';
 
-class ScreenHome extends StatelessWidget  {
+class ScreenHome extends StatelessWidget {
   ScreenHome({super.key});
 
   ValueNotifier scrollNotifier = ValueNotifier(true);
@@ -77,7 +77,7 @@ class ScreenHome extends StatelessWidget  {
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children:const [
+                              children: const [
                                 Text(
                                   'Tv Shows',
                                   style: TextStyle(fontWeight: FontWeight.bold),
