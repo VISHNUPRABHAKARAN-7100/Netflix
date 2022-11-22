@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import '../../core/constants/constants.dart';
 
 class MainCard extends StatelessWidget {
+  final String imageUrl;
   const MainCard({
     Key? key,
+    required this.imageUrl,
   }) : super(key: key);
 
   @override
@@ -14,12 +16,12 @@ class MainCard extends StatelessWidget {
         height: 250,
         width: 130,
         decoration: BoxDecoration(
-          image: const DecorationImage(
+          image:  DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(
-                'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/iqWCUwLcjkVgtpsDLs8xx8kscg6.jpg'),
+                imageUrl),
           ),
-          color: Colors.amber,
+         
           borderRadius: kBorderRadius(radius: 20),
         ),
       ),
