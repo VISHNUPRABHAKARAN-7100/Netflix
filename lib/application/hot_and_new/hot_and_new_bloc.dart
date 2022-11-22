@@ -16,39 +16,73 @@ class HotAndNewBloc extends Bloc<HotAndNewEvent, HotAndNewState> {
   HotAndNewBloc(this._hotAndNewService) : super(HotAndNewState.initial()) {
     // get hot and new movie data
 
-    on<LoadDataInComingSoon>((event, emit) async {
-      // send loading to UI
-      emit(const HotAndNewState(
-        comingSoonList: [],
-        everyOneIsWatchingList: [],
-        isLoading: true,
-        hasError: false,
-      ));
+    on<LoadDataInComingSoon>(
+      (event, emit) async {
+        // send loading to UI
+        emit(const HotAndNewState(
+          comingSoonList: [],
+          everyOneIsWatchingList: [],
+          isLoading: true,
+          hasError: false,
+        ));
 
-      // get data from remote
-      final _result = await _hotAndNewService.getHotAndNewMovieData();
-      // data to state
-      final newState = _result.fold(
-        (MainFailure failure) {
-          return const HotAndNewState(
-            comingSoonList: [],
-            everyOneIsWatchingList: [],
-            isLoading: false,
-            hasError: true,
-          );
-        },
-        (HotAndNewResp resp) {
-          return HotAndNewState(
-            comingSoonList: resp.results,
-            everyOneIsWatchingList: state.everyOneIsWatchingList,
-            isLoading: false,
-            hasError: false,
-          );
-        },
-      );
-      emit(newState);
-    });
+        // get data from remote
+        final _result = await _hotAndNewService.getHotAndNewMovieData();
+        // data to state
+        final newState = _result.fold(
+          (MainFailure failure) {
+            return const HotAndNewState(
+              comingSoonList: [],
+              everyOneIsWatchingList: [],
+              isLoading: false,
+              hasError: true,
+            );
+          },
+          (HotAndNewResp resp) {
+            return HotAndNewState(
+              comingSoonList: resp.results,
+              everyOneIsWatchingList: state.everyOneIsWatchingList,
+              isLoading: false,
+              hasError: false,
+            );
+          },
+        );
+        emit(newState);
+      },
+    );
 //  get hot and new tv data
-    on<LoadDataInEveryoneIsWatching>((event, emit) async {});
+    on<LoadDataInEveryoneIsWatching>((event, emit) async {
+
+       // send loading to UI
+        emit(const HotAndNewState(
+          comingSoonList: [],
+          everyOneIsWatchingList: [],
+          isLoading: true,
+          hasError: false,
+        ));
+
+        // get data from remote
+        final _result = await _hotAndNewService.getHotAndNewTvData();
+        // data to state
+        final newState = _result.fold(
+          (MainFailure failure) {
+            return const HotAndNewState(
+              comingSoonList: [],
+              everyOneIsWatchingList: [],
+              isLoading: false,
+              hasError: true,
+            );
+          },
+          (HotAndNewResp resp) {
+            return HotAndNewState(
+              comingSoonList: state.everyOneIsWatchingList,
+              everyOneIsWatchingList: resp.results,
+              isLoading: false,
+              hasError: false,
+            );
+          },
+        );
+        emit(newState);
+    });
   }
 }

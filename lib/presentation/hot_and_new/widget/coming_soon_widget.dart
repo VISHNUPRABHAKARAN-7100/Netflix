@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:netflix_app/core/colors/colors.dart';
 import 'package:netflix_app/core/constants/constants.dart';
-
 import '../../home/widgets/custome_button_widget.dart';
 import '../../widgets/video_widget.dart';
 
@@ -42,7 +41,7 @@ class ComingSoonWidget extends StatelessWidget {
               ),
               Text(
                 day,
-                style: TextStyle(
+                style: const TextStyle(
                   letterSpacing: 6,
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -57,7 +56,9 @@ class ComingSoonWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-               VideoWidget(url: posterPath,),
+              VideoWidget(
+                url: posterPath,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -66,14 +67,12 @@ class ComingSoonWidget extends StatelessWidget {
                       movieName,
                       maxLines: 1,
                       overflow: TextOverflow.clip,
-                      style: TextStyle(
-                       // letterSpacing: 0,
+                      style: const TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  
                   const CustomButtonWidget(
                     iconsize: 20,
                     textSize: 16,
@@ -121,7 +120,7 @@ class ComingSoonWidget extends StatelessWidget {
                 description,
                 maxLines: 4,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                   color: kGreyColor,
                 ),
               )

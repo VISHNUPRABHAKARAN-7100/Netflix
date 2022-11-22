@@ -85,7 +85,6 @@ class Section2 extends StatelessWidget {
           ),
           BlocBuilder<DownloadsBloc, DownloadsState>(
             builder: (context, state) {
-              // print(state.toString());
               return SizedBox(
                 width: size.width,
                 height: size.width,
