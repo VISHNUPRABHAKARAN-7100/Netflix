@@ -5,6 +5,8 @@ import 'package:netflix_app/application/downloads/downloads_bloc.dart';
 import 'package:netflix_app/core/colors/colors.dart';
 import 'package:netflix_app/presentation/main_page/screen_main_page.dart';
 
+import 'application/fast_laugh/fast_laugh_bloc.dart';
+import 'application/hot_and_new/hot_and_new_bloc.dart';
 import 'application/search/search_bloc.dart';
 import 'domain/core/di/injectable.dart';
 
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (ctx) => getIt<DownloadsBloc>()),
         BlocProvider(create: (ctx) => getIt<SearchBloc>()),
+        BlocProvider(create: (ctx) => getIt<FastLaughBloc>()),
+        BlocProvider(create: (ctx) => getIt<HotAndNewBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,3 +51,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class FastLaugh {}

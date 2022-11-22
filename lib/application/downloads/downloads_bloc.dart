@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:netflix_app/domain/core/failures/main_failure.dart';
 import 'package:netflix_app/domain/downloads/i_downloads_repo.dart';
@@ -36,7 +32,8 @@ class DownloadsBloc extends Bloc<DownloadsEvent, DownloadsState> {
               isLoading: false,
               downloadsFailureOrSuccessOption: Some(Left(failure))),
           (success) => state.copyWith(
-              isLoading: false,downloads: success,
+              isLoading: false,
+              downloads: success,
               downloadsFailureOrSuccessOption: Some(Right(success))),
         ),
       );

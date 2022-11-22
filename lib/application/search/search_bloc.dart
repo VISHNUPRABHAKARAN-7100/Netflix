@@ -93,14 +93,12 @@ idle state
           );
         },
         (SearchResponse r) {
-         
           return const SearchState(
             searchResultList: [],
             idleList: [],
             isLoading: false,
             isError: false,
           );
-          
         },
       );
 

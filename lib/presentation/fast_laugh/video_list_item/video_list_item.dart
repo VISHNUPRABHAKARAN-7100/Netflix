@@ -1,6 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:netflix_app/application/fast_laugh/fast_laugh_bloc.dart';
 import 'package:netflix_app/core/colors/colors.dart';
+import 'package:netflix_app/core/constants/constants.dart';
+import 'package:netflix_app/domain/downloads/models/downloads.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:video_player/video_player.dart';
+
+class VideoListItemInheritedWidget extends InheritedWidget {
+  final Widget widget;
+  final Downloads movieData;
+
+  const VideoListItemInheritedWidget({
+    Key? key,
+    required this.widget,
+    required this.movieData,
+  }) : super(key: key, child: widget);
+
+  @override
+  bool updateShouldNotify(covariant VideoListItemInheritedWidget oldWidget) {
+    return oldWidget.movieData != movieData;
+  }
+
+  static VideoListItemInheritedWidget? of(BuildContext context) {
+    return context
+        .dependOnInheritedWidgetOfExactType<VideoListItemInheritedWidget>();
+  }
+}
 
 class VideListItem extends StatelessWidget {
   final int index;
@@ -8,10 +36,14 @@ class VideListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final posterPath =
+        VideoListItemInheritedWidget.of(context)?.movieData.posterPath;
+    final videoUrl = dummyVideoUrls[index % dummyVideoUrls.length];
     return Stack(
       children: [
-        Container(
-          color: Colors.accents[index % Colors.accents.length],
+        FastLaughVideoPlayer(
+          videoUrl: videoUrl,
+          onStateChanges: (bool) {},
         ),
         Align(
           alignment: Alignment.bottomCenter,
@@ -37,21 +69,69 @@ class VideListItem extends StatelessWidget {
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
+                  children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: CircleAvatar(
                         radius: 30,
-                        backgroundImage: NetworkImage(
-                            'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/g7rdcofib7HqdlDP1LT7Hmf1f2o.jpg'),
+                        backgroundImage: posterPath == null
+                            ? null
+                            : NetworkImage('$imageAppendUrl$posterPath'),
                       ),
                     ),
-                    VideoActionsWidget(
-                        icon: CupertinoIcons.smiley, title: 'LOL'),
-                    VideoActionsWidget(icon: Icons.add, title: 'My List'),
-                    VideoActionsWidget(icon: Icons.share, title: 'Share'),
-                    VideoActionsWidget(
-                        icon: CupertinoIcons.play_circle, title: 'Play'),
+                    ValueListenableBuilder(
+                      valueListenable: likedVideosIdsNotifier,
+                      builder: (BuildContext context, Set<int> newLikedIds,
+                          Widget? _) {
+                        final _index = index;
+                        if (newLikedIds.contains(_index)) {
+                          return GestureDetector(
+                            onTap: () {
+                              likedVideosIdsNotifier.value.remove(_index);
+                              likedVideosIdsNotifier.notifyListeners();
+                            },
+                            child: const VideoActionsWidget(
+                              icon: CupertinoIcons.heart,
+                              title: 'LIKED',
+                            ),
+                          );
+                        }
+
+                        return GestureDetector(
+                          onTap: () {
+                            likedVideosIdsNotifier.value.add(_index);
+                            likedVideosIdsNotifier.notifyListeners();
+                          },
+                          child: const VideoActionsWidget(
+                            icon: CupertinoIcons.smiley,
+                            title: 'LOL',
+                          ),
+                        );
+                      },
+                    ),
+                    const VideoActionsWidget(
+                      icon: Icons.add,
+                      title: 'My List',
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        final movieName =
+                            VideoListItemInheritedWidget.of(context)
+                                ?.movieData
+                                .posterPath;
+                        if (movieName != null) {
+                          Share.share(movieName);
+                        }
+                      },
+                      child: const VideoActionsWidget(
+                        icon: Icons.share,
+                        title: 'Share',
+                      ),
+                    ),
+                    const VideoActionsWidget(
+                      icon: CupertinoIcons.play_circle,
+                      title: 'Play',
+                    ),
                   ],
                 )
               ],
@@ -93,5 +173,54 @@ class VideoActionsWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class FastLaughVideoPlayer extends StatefulWidget {
+  final String videoUrl;
+  final void Function(bool isPlaying) onStateChanges;
+  const FastLaughVideoPlayer(
+      {super.key, required this.videoUrl, required this.onStateChanges});
+
+  @override
+  State<FastLaughVideoPlayer> createState() => _FastLaughVideoPlayerState();
+}
+
+class _FastLaughVideoPlayerState extends State<FastLaughVideoPlayer> {
+  late VideoPlayerController _videoPlayerController;
+
+  @override
+  void initState() {
+    _videoPlayerController = VideoPlayerController.network(widget.videoUrl);
+    _videoPlayerController.initialize().then((value) {
+      setState(() {
+        _videoPlayerController.play();
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: _videoPlayerController.value.isInitialized
+          ? AspectRatio(
+              aspectRatio: _videoPlayerController.value.aspectRatio,
+              child: VideoPlayer(_videoPlayerController),
+            )
+          : const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+              ),
+            ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _videoPlayerController.dispose();
+    super.dispose();
   }
 }

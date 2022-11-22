@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:netflix_app/core/colors/colors.dart';
 import 'package:netflix_app/core/constants/constants.dart';
 
@@ -7,9 +6,22 @@ import '../../home/widgets/custome_button_widget.dart';
 import '../../widgets/video_widget.dart';
 
 class ComingSoonWidget extends StatelessWidget {
+  final String id;
+  final String month;
+  final String day;
+  final String posterPath;
+  final String movieName;
+  final String description;
+
   const ComingSoonWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.id,
+    required this.month,
+    required this.day,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,20 +29,23 @@ class ComingSoonWidget extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: size.width * .2,
+          width: size.width * .15,
           height: 450,
           child: Column(
-            children: const [
+            children: [
               Text(
-                'FEB',
-                style: TextStyle(fontSize: 20, color: kGreyColor),
+                month,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: kGreyColor,
+                ),
               ),
               Text(
-                '11',
+                day,
                 style: TextStyle(
                   letterSpacing: 6,
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: 20,
                 ),
               ),
             ],
@@ -38,23 +53,27 @@ class ComingSoonWidget extends StatelessWidget {
         ),
         SizedBox(
           height: 450,
-          width: size.width * .8,
+          width: size.width * .85,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const VideoWidget(),
+               VideoWidget(url: posterPath,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    "Tall Girl 2",
-                    style: TextStyle(
-                      letterSpacing: 0,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Text(
+                      movieName,
+                      maxLines: 1,
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(
+                       // letterSpacing: 0,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  const Spacer(),
+                  
                   const CustomButtonWidget(
                     iconsize: 20,
                     textSize: 16,
@@ -75,7 +94,7 @@ class ComingSoonWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              const Text('Coming on Friday'),
+              Text('Coming on $day $month'),
               Row(
                 children: [
                   Image.network(
@@ -89,15 +108,19 @@ class ComingSoonWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              const Text(
-                'Tall Girl 2',
-                style: TextStyle(
+              Text(
+                movieName,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Text(
-                '''Landing in the lead in the school musical is a dream come true for Jodi, until the pressure sends her confidence --and her relationship -- into a tailspin.''',
+              Text(
+                description,
+                maxLines: 4,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: kGreyColor,
                 ),

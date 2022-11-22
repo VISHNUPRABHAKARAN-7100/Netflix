@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,7 +35,7 @@ class ScreenSearch extends StatelessWidget {
                 onChanged: (value) {
                   _debouncer.run(() {
                     if (value.isEmpty) {
-                      return; 
+                      return;
                     }
                     BlocProvider.of<SearchBloc>(context)
                         .add(SearchMovie(movieQuery: value));

@@ -29,7 +29,9 @@ class SearchResultWidget extends StatelessWidget {
                   (index) {
                     final movie = state.searchResultList[index];
 
-                    return MyCard(imageUrl: movie.posterImageUrl,);
+                    return MyCard(
+                      imageUrl: movie.posterImageUrl,
+                    );
                   },
                 ),
               );

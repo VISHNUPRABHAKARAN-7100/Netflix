@@ -1,6 +1,4 @@
-
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:netflix_app/core/constants/constants.dart';
 import 'package:netflix_app/presentation/home/widgets/custome_button_widget.dart';
 import 'package:netflix_app/presentation/widgets/video_widget.dart';
@@ -8,9 +6,16 @@ import 'package:netflix_app/presentation/widgets/video_widget.dart';
 import '../../../core/colors/colors.dart';
 
 class EveryonesWatchingWidget extends StatelessWidget {
+  final String posterPath;
+  final String movieName;
+  final String description;
+
   const EveryonesWatchingWidget({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+    required this.posterPath,
+    required this.movieName,
+    required this.description,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +41,7 @@ class EveryonesWatchingWidget extends StatelessWidget {
         kSizedBox(
           height: 50,
         ),
-        const VideoWidget(),
+         VideoWidget(url: posterPath,),
         kSizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

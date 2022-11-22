@@ -1,12 +1,11 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../core/colors/colors.dart';
 
 class VideoWidget extends StatelessWidget {
+  final String url;
   const VideoWidget({
-    Key? key,
+    Key? key, required this.url,
   }) : super(key: key);
 
   @override
@@ -17,7 +16,7 @@ class VideoWidget extends StatelessWidget {
           width: double.infinity,
           height: 200,
           child: Image.network(
-            'https://www.themoviedb.org/t/p/w533_and_h300_bestv2/A1bWhTFQKkhF1yhSKWosSyzn2Hp.jpg',
+            url,
             fit: BoxFit.cover,
           ),
         ),

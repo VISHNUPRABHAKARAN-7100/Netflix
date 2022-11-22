@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netflix_app/application/downloads/downloads_bloc.dart';
 import 'package:netflix_app/core/colors/colors.dart';
 import 'package:netflix_app/core/constants/constants.dart';
-import 'package:netflix_app/domain/downloads/models/downloads.dart';
 import 'package:netflix_app/presentation/widgets/app_bar_widget.dart';
 
 class ScreenDownloads extends StatelessWidget {
@@ -13,7 +12,7 @@ class ScreenDownloads extends StatelessWidget {
 
   final _widgetList = [
     const _SmartDownloads(),
-    Section2(),
+    const Section2(),
     const Section3(),
   ];
 
@@ -86,7 +85,7 @@ class Section2 extends StatelessWidget {
           ),
           BlocBuilder<DownloadsBloc, DownloadsState>(
             builder: (context, state) {
-             // print(state.toString());
+              // print(state.toString());
               return SizedBox(
                 width: size.width,
                 height: size.width,
